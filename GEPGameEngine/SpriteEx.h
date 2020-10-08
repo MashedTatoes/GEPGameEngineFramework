@@ -48,8 +48,9 @@ struct AnimStateDefinition
     short rowIndex;
     short frames;
     short time;
+    bool interrupt;
     AnimStateDefinition() {}
-    AnimStateDefinition(short ri, short f, short t) : rowIndex(ri), frames(f), time(t) {}
+    AnimStateDefinition(short ri, short f, short t, bool in) : rowIndex(ri), frames(f), time(t), interrupt(in) {}
 };
 //this is the animated version of the Sprite class
 class SpriteExAnimated : public SpriteEx
@@ -64,6 +65,7 @@ protected:
         m_iFrame = 0, //which frame we are at now
         m_iFrameMax; //number of frames for this sprite
     std::string currentState;
+    bool animationReset;
     //Stores various animation states for this spritesheet
     std::map<std::string, AnimStateDefinition> animStates;
 public:

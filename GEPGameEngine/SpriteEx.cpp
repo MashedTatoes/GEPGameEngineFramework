@@ -21,10 +21,12 @@ SpriteExAnimated::SpriteExAnimated(SDL_Texture* tex, double x, double y,
 }
 void SpriteExAnimated::Animate()
 {
+	animationReset = false;
 	m_iFrame++;
 	if (m_iFrame >= m_iFrameMax)
 	{
 		m_iFrame = 0;
+		animationReset = true;
 
 	}
 }
@@ -42,10 +44,13 @@ void SpriteExAnimated::AnimateRange(AnimStateDefinition asd)
 }
 void SpriteExAnimated::PlayState(std::string stateName)
 {
-	if (currentState != stateName)
+	if (animationReset || (currentState != stateName) && animStates[currentState].interrupt) {
 		m_iFrame = 0;
-	AnimateRange(animStates[stateName]);
-	currentState = stateName;
+		
+		currentState = stateName;
+	}
+	AnimateRange(animStates[currentState]);
+		
 }
 void SpriteEx::UpdateDestRect()
 {
