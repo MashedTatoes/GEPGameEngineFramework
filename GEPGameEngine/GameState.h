@@ -9,7 +9,7 @@ using namespace std;
 
 class GameState : public ScreenState
 {
-private:
+protected:
 	SDL_Texture * mainSpriteTex;//load and store the main sprite texture
 	SDL_Texture* bgSpriteTex; //load and store background sprite tex
 
@@ -24,7 +24,7 @@ public:
 	GameState() {}
 	void Update();
 	void Render();
-	void Enter();
+	virtual void Enter();
 	void Exit();
 	void Resume() { cout << "Resuming Game..." << endl; }
 	bool CircleCollisionTest(double x1, double y1, double x2, double y2, double r1, double r2)

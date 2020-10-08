@@ -28,7 +28,7 @@ private:
  
 	bool m_bLeftMouse = false; // Keeps track of left mouse button state.
 	int m_iMouseX, m_iMouseY;  // Variables to hold mouse positions.
-
+	int _lastTick = 0;
 
 public:
 	static Game* Instance(); //singleton instance reference
@@ -59,7 +59,8 @@ public:
 	//clean-up code
 	void Clean();
 
-
+	unsigned int GetLastTick() { return _lastTick; }
+	void UpdateTick() { _lastTick = SDL_GetTicks(); }
 
 	int GetMouseX() { return m_iMouseX; }
 	int GetMouseY() { return m_iMouseY; }

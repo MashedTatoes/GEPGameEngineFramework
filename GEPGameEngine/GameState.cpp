@@ -3,8 +3,8 @@
 #include "PauseMenuPopupState.h"
 void GameState::Enter()
 {
-	bgSpriteTex = Game::Instance()->LoadTexture("background.png");
-	mainSpriteTex = Game::Instance()->LoadTexture("Sprites.png");
+	
+	
 
 	m_pFont = TTF_OpenFont("Font/LTYPE.TTF", 30);
 

@@ -1,7 +1,7 @@
 #include "MainMenuState.h"
 #include "Game.h"
 #include "GameState.h"
-
+#include "GameLevel1.h"
 void MainMenuState::Enter()
 {
 	cout << "Entering MainMenu...\n";
@@ -21,7 +21,7 @@ void MainMenuState::Update()
 	if (m_vButtons[btn::play]->Clicked())
 	{
 		//we need to switch to gamestate ... 
-		Game::Instance()->GetFSM()->ChangeState(new GameState());
+		Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
 	}
 
 	else if (m_vButtons[btn::exit]->Clicked())

@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLevel1.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -140,12 +141,17 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLevel1.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="PauseMenuPopupState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpriteEx.h" />
     <ClInclude Include="StateMachine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\images\bg_level1.jpg" />
+    <Image Include="resources\images\PlayerKenSprite.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
