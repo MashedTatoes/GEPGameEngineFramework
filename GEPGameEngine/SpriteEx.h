@@ -2,13 +2,19 @@
 #include "SDL.h"
 #include <iostream>
 #include <map>
+#define FLIPPED_HORIZONTAL(flipped) flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE
+#define FLIPPED_VERTICAL(flipped) flipped ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE
 //this base class will render just one static sprite
+
 class SpriteEx
 {
 protected:
     SDL_Rect spriteSrcRect; //which part of the spritesheet we would like to render
     SDL_Rect spriteDestRect; //the position on the screen we would like to render this sprite at
     SDL_Texture* texture;
+    //first for horizontal second for vertical
+    std::pair<bool, bool> flippedDimensions;
+    bool isFlipped;
     double angle;//the angle to display sprite (in degrees)
     double m_X, //x coord
         m_Y, //Y coord
@@ -20,6 +26,7 @@ public:
     SpriteEx() {}
     SpriteEx(SDL_Texture* tex, SDL_Rect srcRect, SDL_Rect dstRect)
     {
+        isFlipped = false;
         texture = tex;
         spriteSrcRect = srcRect;
         spriteDestRect = dstRect;

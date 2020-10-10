@@ -1,16 +1,21 @@
 #include "Game.h"
 void SpriteEx::Render()
 {
+	SDL_RendererFlip flip = FLIPPED_HORIZONTAL(flippedDimensions.first) | FLIPPED_VERTICAL(flippedDimensions.second);
 	if (SDL_RenderCopyEx(Game::Instance()->GetRenderer(), texture,
-		&spriteSrcRect, &spriteDestRect, angle, nullptr, SDL_FLIP_NONE) == 0)
+		&spriteSrcRect, &spriteDestRect, angle, nullptr, flip) >= 0)
 	{
 		// std::cout << "Success...\n";
 	}
 	else
 	{
 		std::cout << "Failed to render..\n";
+		std::cout << SDL_GetError();
 	}
 }
+
+
+
 SpriteExAnimated::SpriteExAnimated(SDL_Texture* tex, double x, double y,
 	double a)
 {
