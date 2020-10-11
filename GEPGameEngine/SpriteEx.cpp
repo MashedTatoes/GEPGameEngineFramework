@@ -1,4 +1,4 @@
-#include "Game.h"
+	#include "Game.h"
 void SpriteEx::Render()
 {
 	SDL_RendererFlip flip = FLIPPED_HORIZONTAL(flippedDimensions.first) | FLIPPED_VERTICAL(flippedDimensions.second);

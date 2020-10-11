@@ -63,6 +63,9 @@
     <ClCompile Include="Scorpion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -95,6 +98,9 @@
     <ClInclude Include="Scorpion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\bg_level1.jpg">
@@ -104,6 +110,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\images\Scorpion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\PlayerKenSpriteEnemy.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
