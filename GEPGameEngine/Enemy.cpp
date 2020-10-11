@@ -17,4 +17,5 @@ void Enemy::Update()
 void Enemy::UpdateEnemy()
 {
 	PlayState("Idle");
+	spriteSrcRect.x = spriteSrcRect.w * m_iFrame; //updates the animation
 }
