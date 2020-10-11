@@ -70,6 +70,7 @@ protected:
         // m_iSpriteMax, //how many sprites in total for this animation
         m_iFrame = 0, //which frame we are at now
         m_iFrameMax; //number of frames for this sprite
+    Uint32 lastUpdate;
     std::string currentState;
     //Stores various animation states for this spritesheet
     std::map<std::string, AnimStateDefinition> animStates;

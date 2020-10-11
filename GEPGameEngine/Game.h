@@ -61,7 +61,7 @@ public:
 
 	unsigned int GetLastTick() { return _lastTick; }
 	void UpdateTick() { _lastTick = SDL_GetTicks(); }
-
+	//Uint32 GetTick() { return SDL_GetTicks(); }
 	int GetMouseX() { return m_iMouseX; }
 	int GetMouseY() { return m_iMouseY; }
 	int GetLeftMouse() { return m_bLeftMouse; }

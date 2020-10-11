@@ -19,6 +19,7 @@ void SpriteEx::Render()
 SpriteExAnimated::SpriteExAnimated(SDL_Texture* tex, double x, double y,
 	double a)
 {
+	lastUpdate = SDL_GetTicks();
 	texture = tex;
 	m_X = x;
 	m_Y = y;
@@ -38,9 +39,9 @@ void SpriteExAnimated::AnimateRange(AnimStateDefinition asd)
 	//change the row
 	spriteSrcRect.y = spriteSrcRect.h * asd.rowIndex;
 	if (SDL_TICKS_PASSED(SDL_GetTicks(),
-		Game::Instance()->GetLastTick() + asd.time))
+		lastUpdate + asd.time))
 	{
-		Game::Instance()->UpdateTick();
+		lastUpdate = SDL_GetTicks();
 		m_iFrameMax = asd.frames;
 		Animate();
 	}
