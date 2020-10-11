@@ -73,7 +73,7 @@ protected:
     Uint32 lastUpdate;
     std::string currentState;
     //Stores various animation states for this spritesheet
-    std::map<std::string, AnimStateDefinition> animStates;
+    std::map<std::string, AnimStateDefinition> animStates;  
 public:
     void AddAnimState(std::string stateName, AnimStateDefinition asd);
     void PlayState(std::string stateName);
