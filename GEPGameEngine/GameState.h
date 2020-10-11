@@ -1,7 +1,7 @@
 #pragma once
 #include "Player.h"
  #include "SDL_mixer.h"
-
+#include "Scorpion.h"
 #include "ScreenState.h"
 
 #include <iostream>
@@ -17,7 +17,7 @@ protected:
 	SpriteEx* bg;
 
 	Player* player; 
-	 
+	
 	 
 
 public:

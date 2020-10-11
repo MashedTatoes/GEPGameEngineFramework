@@ -20,7 +20,7 @@ void GameState::Enter()
 
 	  
 	player = new Player(mainSpriteTex, bgDestRect.w*0.5, bgDestRect.h - 100);
-
+	//scorpion = new Scorpion(bgDestRect.w * 0.5, bgDestRect.h - 100);
  
 }
 
@@ -34,7 +34,7 @@ void GameState::Update()
 	}
 
 	if (player) player->Update();
-
+	
  
 
 	if (player) this->CheckCollision();
@@ -58,7 +58,7 @@ void GameState::Render()
 	bg->Render();
 
 	if (player) player->Render();
-
+	
   
 	ScreenState::Render();
 

@@ -57,10 +57,17 @@ void Player::Jump()
 void Player::UpdatePlayer()
 {
     //press D to move right... A to move left
-    if (Game::Instance()->KeyDown(SDL_SCANCODE_D))
+    if (Game::Instance()->KeyDown(SDL_SCANCODE_D)) {
+        this->flippedDimensions.first = false;
         this->MovePlayer(true);
-    else if (Game::Instance()->KeyDown(SDL_SCANCODE_A))
+    }
+        
+    else if (Game::Instance()->KeyDown(SDL_SCANCODE_A)) {
+        //this->isFlipped = true;
+        this->flippedDimensions.first = true;
         this->MovePlayer(false);
+    }
+        
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_SPACE))
     {
         PlayState("Jump");

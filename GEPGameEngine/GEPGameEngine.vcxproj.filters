@@ -60,6 +60,9 @@
     <ClCompile Include="GameLevel1.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Scorpion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -89,12 +92,18 @@
     <ClInclude Include="GameLevel1.h">
       <Filter>Header Files\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="Scorpion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\bg_level1.jpg">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\images\PlayerKenSprite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\Scorpion.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
