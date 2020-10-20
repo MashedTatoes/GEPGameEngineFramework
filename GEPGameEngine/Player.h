@@ -17,5 +17,6 @@ public:
 	void Render();
 	//void SetIdle();
 	void Jump();
+	void OnJumpAnimComplete();
 
 };

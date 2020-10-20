@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include <iostream>
 #include <map>
+#include <functional>
 #define FLIPPED_HORIZONTAL(flipped) flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE
 #define FLIPPED_VERTICAL(flipped) flipped ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE
 //this base class will render just one static sprite
@@ -14,6 +15,7 @@ protected:
     SDL_Texture* texture;
     //first for horizontal second for vertical
     std::pair<bool, bool> flippedDimensions;
+    bool animationReset;
     bool isFlipped;
     double angle;//the angle to display sprite (in degrees)
     double m_X, //x coord
@@ -55,9 +57,23 @@ struct AnimStateDefinition
     short rowIndex;
     short frames;
     short time;
+    bool isLoopable = false;
+    bool isInterrupt = true;
+
+    std::function<void()> callbackOnComplete;
+
+    void AddCallbackOnComplete(std::function<void()> cb) {
+        callbackOnComplete = cb;
+    }
+
     AnimStateDefinition() {}
-    AnimStateDefinition(short ri, short f, short t) : rowIndex(ri), frames(f), time(t) {}
-};
+    AnimStateDefinition(short ri, short f, short t, bool loop = false,
+        bool interrupt = true)
+        : rowIndex(ri), frames(f), time(t), isLoopable(loop),
+        isInterrupt(interrupt)
+    {}
+    
+};  
 //this is the animated version of the Sprite class
 class SpriteExAnimated : public SpriteEx
 {
@@ -74,9 +90,11 @@ protected:
     std::string currentState;
     //Stores various animation states for this spritesheet
     std::map<std::string, AnimStateDefinition> animStates;  
+    bool isAnimFinished;
 public:
     void AddAnimState(std::string stateName, AnimStateDefinition asd);
     void PlayState(std::string stateName);
     SpriteExAnimated(SDL_Texture* tex, double x, double y,
         double a);
 };
+
