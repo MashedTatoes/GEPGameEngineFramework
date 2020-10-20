@@ -26,6 +26,8 @@ void SpriteExAnimated::Animate()
     m_iFrame++;
     if (m_iFrame >= m_iFrameMax)
     {
+        if (animStates[currentState].callbackOnComplete != nullptr)
+            animStates[currentState].callbackOnComplete();
         isAnimFinished = true;
         m_iFrame = 0;
 
@@ -48,7 +50,7 @@ void SpriteExAnimated::PlayState(std::string stateName)
     /*If isInterrupt is false for the new animation being called,
     then Keep playing the previous animation as long as that previous animation is still not completed...
     */
-    if (!animStates[stateName].isInterrupt && !isAnimFinished)
+    if (animStates[currentState].isInterrupt && !isAnimFinished)
     {
         AnimateRange(animStates[currentState]);
         return;

@@ -10,6 +10,7 @@ private:
 		m_velMax = 10;
 	void MovePlayer(bool isFwd);
 	void UpdatePlayer();
+	int ground;
 public:
 	Player(SDL_Texture* tex, double x, double y);
 	~Player();
@@ -18,5 +19,6 @@ public:
 	//void SetIdle();
 	void Jump();
 	void OnJumpAnimComplete();
+	
 
 };

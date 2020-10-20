@@ -24,6 +24,7 @@ protected:
         m_DY, //the change in Y coordinate
         m_dSpeed; //speed in pixels to move per change
     double m_dRadius; //radius of the sprite's circle bounds
+
 public:
     SpriteEx() {}
     SpriteEx(SDL_Texture* tex, SDL_Rect srcRect, SDL_Rect dstRect)

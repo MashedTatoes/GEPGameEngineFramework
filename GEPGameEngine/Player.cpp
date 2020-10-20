@@ -9,6 +9,7 @@ Player::Player(SDL_Texture* tex, double x, double y)
     m_velX = 0.7f;
     m_DY = 0.1f;
     m_dRadius = 50;
+    ground = m_Y;
     AddAnimState("Hadouken", AnimStateDefinition(0, 4, 90));
     AddAnimState("Idle", AnimStateDefinition(1, 4, 90, true, false));
     AddAnimState("Punch", AnimStateDefinition(2, 3, 90));
@@ -85,4 +86,5 @@ void Player::UpdatePlayer()
 }
 void Player::OnJumpAnimComplete() {
     std::cout << "Jumped";
+    m_Y = ground;
 }
