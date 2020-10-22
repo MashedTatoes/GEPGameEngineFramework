@@ -7,16 +7,16 @@ Player::Player(SDL_Texture* tex, double x, double y)
     spriteSrcRect = { 0,0,70,80 };
     spriteDestRect = { (int)(m_X - 50),(int)(m_Y - 50)  ,70,80 };
     m_velX = 0.7f;
-    m_DY = 0.2f;
+    m_DY = 0.1f;
     m_dRadius = 50;
-    AddAnimState("Hadouken", AnimStateDefinition(0, 4, 150,false));
-    AddAnimState("Idle", AnimStateDefinition(1, 4, 150, true));
-    AddAnimState("Punch", AnimStateDefinition(2, 3, 150, false));
-    AddAnimState("Move", AnimStateDefinition(3, 5, 150, true));
-    AddAnimState("Kick", AnimStateDefinition(6, 5, 150, false));
-    AddAnimState("Roundhouse", AnimStateDefinition(7, 5, 150, false));
-    AddAnimState("Jump", AnimStateDefinition(8, 7, 150, false));
-    AddAnimState("Crouch", AnimStateDefinition(9, 1, 150, false));
+    AddAnimState("Hadouken", AnimStateDefinition(0, 4, 90));
+    AddAnimState("Idle", AnimStateDefinition(1, 4, 90));
+    AddAnimState("Punch", AnimStateDefinition(2, 3, 90));
+    AddAnimState("Move", AnimStateDefinition(3, 5, 90));
+    AddAnimState("Kick", AnimStateDefinition(6, 5, 90));
+    AddAnimState("Roundhouse", AnimStateDefinition(7, 5, 90));
+    AddAnimState("Jump", AnimStateDefinition(8, 7, 90));
+    AddAnimState("Crouch", AnimStateDefinition(9, 1, 180));
 }
 Player::~Player()
 {
@@ -43,16 +43,16 @@ void Player::MovePlayer(bool isFwd)
 }
 void Player::Jump()
 {
-    /*m_velY += m_DY;
+    m_velY += m_DY;
     m_velY = min(max(m_velY, -(m_velMax * fabs(m_DY))), (m_velMax * fabs(m_DY)));
-    if (m_iFrame < m_iFrameMax/2)
+    if (m_iFrame < 3)
     {
         m_Y -= m_velY;
     }
-    else if (m_iFrame >= m_iFrameMax/2)
+    else if (m_iFrame > 3)
     {
         m_Y += m_velY;
-    }*/
+    }
 }
 void Player::UpdatePlayer()
 {
