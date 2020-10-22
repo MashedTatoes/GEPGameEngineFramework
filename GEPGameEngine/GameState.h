@@ -1,7 +1,7 @@
 #pragma once
 #include "Player.h"
  #include "SDL_mixer.h"
-
+#include "Scorpion.h"
 #include "ScreenState.h"
 
 #include <iostream>
@@ -17,15 +17,15 @@ protected:
 	SpriteEx* bg;
 
 	Player* player; 
-	 
+	
 	 
 
 public:
 	GameState() {}
-	void Update();
-	void Render();
+	virtual void Update();
+	virtual void Render();
 	virtual void Enter();
-	void Exit();
+	virtual void Exit();
 	void Resume() { cout << "Resuming Game..." << endl; }
 	bool CircleCollisionTest(double x1, double y1, double x2, double y2, double r1, double r2)
 	{

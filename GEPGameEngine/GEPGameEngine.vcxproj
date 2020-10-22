@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLevel1.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="PauseMenuPopupState.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scorpion.cpp" />
     <ClCompile Include="ScreenState.cpp" />
     <ClCompile Include="ScreenState.h" />
     <ClCompile Include="SpriteEx.cpp" />
@@ -140,18 +142,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLevel1.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="PauseMenuPopupState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Scorpion.h" />
     <ClInclude Include="SpriteEx.h" />
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\bg_level1.jpg" />
     <Image Include="resources\images\PlayerKenSprite.png" />
+    <Image Include="resources\images\PlayerKenSpriteEnemy.png" />
+    <Image Include="resources\images\Scorpion.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

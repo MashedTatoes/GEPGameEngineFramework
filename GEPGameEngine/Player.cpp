@@ -9,14 +9,16 @@ Player::Player(SDL_Texture* tex, double x, double y)
     m_velX = 0.7f;
     m_DY = 0.1f;
     m_dRadius = 50;
+    ground = m_Y;
     AddAnimState("Hadouken", AnimStateDefinition(0, 4, 90));
-    AddAnimState("Idle", AnimStateDefinition(1, 4, 90));
+    AddAnimState("Idle", AnimStateDefinition(1, 4, 90, true, false));
     AddAnimState("Punch", AnimStateDefinition(2, 3, 90));
-    AddAnimState("Move", AnimStateDefinition(3, 5, 90));
+    AddAnimState("Move", AnimStateDefinition(3, 5, 90, true));
     AddAnimState("Kick", AnimStateDefinition(6, 5, 90));
     AddAnimState("Roundhouse", AnimStateDefinition(7, 5, 90));
     AddAnimState("Jump", AnimStateDefinition(8, 7, 90));
     AddAnimState("Crouch", AnimStateDefinition(9, 1, 180));
+    animStates["Jump"].AddCallbackOnComplete(std::bind(&Player::OnJumpAnimComplete, this));
 }
 Player::~Player()
 {
@@ -81,4 +83,8 @@ void Player::UpdatePlayer()
         Jump();
     spriteSrcRect.x = spriteSrcRect.w * m_iFrame; //updates the animation
     this->UpdateDestRect();
+}
+void Player::OnJumpAnimComplete() {
+    std::cout << "Jumped";
+    m_Y = ground;
 }
