@@ -3,7 +3,7 @@ void SpriteEx::Render()
 {
     SDL_RendererFlip flip = FLIPPED_HORIZONTAL(flippedDimensions.first) | FLIPPED_VERTICAL(flippedDimensions.second);
     if (SDL_RenderCopyEx(Game::Instance()->GetRenderer(), texture,
-        &spriteSrcRect, &spriteDestRect, angle, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE) == 0)
+        &spriteSrcRect, &spriteDestRect, angle, nullptr, flip) == 0)
     {
         // std::cout << "Success...\n";
     }
@@ -73,4 +73,37 @@ void SpriteExAnimated::AddAnimState(std::string stateName, AnimStateDefinition a
 {
     //animStates.insert(std::pair<std::string,AnimStateDefinition>(stateName,asd));
     animStates[stateName] = asd;
+}
+
+std::pair<int, int> SpriteEx::CalculateNormal(int x, int y)
+{
+    std::pair<int, int> target;
+    target.first = x - (int)GetX();
+    target.second = y - (int)GetY();
+    std::pair<int, int> normal = { 0,0 };
+    //Get magnitude
+    double magnitude = sqrt((target.first * target.first) + (target.second * target.second));
+    //Calculate normal
+    //If the magnitude is zero then it divides by zero, which is not good
+    if (magnitude != 0) {
+        normal = { (int)round(target.first / magnitude), (int)round(target.second / magnitude) };
+
+    }
+    return normal;
+
+
+
+}
+
+std::pair<int, int> SpriteEx::MoveTowards(int x, int y, float speed)
+{
+    std::pair<int, int> targetNormal = CalculateNormal(x, y);
+
+    m_X += targetNormal.first * speed;
+    m_Y += targetNormal.second * speed;
+    return targetNormal;
+
+
+
+
 }

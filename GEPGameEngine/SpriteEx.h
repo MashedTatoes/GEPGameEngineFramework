@@ -24,6 +24,8 @@ protected:
         m_DY, //the change in Y coordinate
         m_dSpeed; //speed in pixels to move per change
     double m_dRadius; //radius of the sprite's circle bounds
+    std::pair<int, int> CalculateNormal(int x, int y);
+    std::pair<int, int> MoveTowards(int x, int y, float speed);
 
 public:
     SpriteEx() {}
@@ -73,8 +75,8 @@ struct AnimStateDefinition
         : rowIndex(ri), frames(f), time(t), isLoopable(loop),
         isInterrupt(interrupt)
     {}
-    
-};  
+
+};
 //this is the animated version of the Sprite class
 class SpriteExAnimated : public SpriteEx
 {
@@ -90,12 +92,13 @@ protected:
     Uint32 lastUpdate;
     std::string currentState;
     //Stores various animation states for this spritesheet
-    std::map<std::string, AnimStateDefinition> animStates;  
+    std::map<std::string, AnimStateDefinition> animStates;
     bool isAnimFinished;
 public:
     void AddAnimState(std::string stateName, AnimStateDefinition asd);
     void PlayState(std::string stateName);
     SpriteExAnimated(SDL_Texture* tex, double x, double y,
         double a);
+    std::string GetCurrentState() { return currentState; }
 };
 

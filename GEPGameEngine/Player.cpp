@@ -10,6 +10,7 @@ Player::Player(SDL_Texture* tex, double x, double y)
     m_DY = 0.1f;
     m_dRadius = 50;
     ground = m_Y;
+
     AddAnimState("Hadouken", AnimStateDefinition(0, 4, 90));
     AddAnimState("Idle", AnimStateDefinition(1, 4, 90, true, false));
     AddAnimState("Punch", AnimStateDefinition(2, 3, 90));
@@ -17,8 +18,15 @@ Player::Player(SDL_Texture* tex, double x, double y)
     AddAnimState("Kick", AnimStateDefinition(6, 5, 90));
     AddAnimState("Roundhouse", AnimStateDefinition(7, 5, 90));
     AddAnimState("Jump", AnimStateDefinition(8, 7, 90));
-    AddAnimState("Crouch", AnimStateDefinition(9, 1, 180));
+    AddAnimState("Crouch", AnimStateDefinition(9, 1, 360));
+    this->attackPool.push_back("Punch");
+    this->attackPool.push_back("Kick");
+    this->attackPool.push_back("Roundhouse");
+    this->attackPool.push_back("Hadouken");
     animStates["Jump"].AddCallbackOnComplete(std::bind(&Player::OnJumpAnimComplete, this));
+    for (auto& state : this->attackPool) {
+        animStates[state].AddCallbackOnComplete(std::bind(&Player::OnAttackCompleted, this));
+    }
 }
 Player::~Player()
 {
@@ -71,14 +79,28 @@ void Player::UpdatePlayer()
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_P))
     {
         PlayState("Punch");
+        isAttacking = true;
         //play punch animation here
     }
-    else if (Game::Instance()->KeyDown(SDL_SCANCODE_K))
+    else if (Game::Instance()->KeyDown(SDL_SCANCODE_K)) {
         PlayState("Kick");
+        isAttacking = true;
+    }
+
+
+    else if (Game::Instance()->KeyDown(SDL_SCANCODE_RETURN)) {
+        PlayState("Hadouken");
+        isAttacking = true;
+    }
+    else if (Game::Instance()->KeyDown(SDL_SCANCODE_R)) {
+        PlayState("Roundhouse");
+        isAttacking = true;
+    }
     else  //idle animation
     {
         PlayState("Idle");
     }
+
     if (currentState == "Jump")
         Jump();
     spriteSrcRect.x = spriteSrcRect.w * m_iFrame; //updates the animation
@@ -87,4 +109,8 @@ void Player::UpdatePlayer()
 void Player::OnJumpAnimComplete() {
     std::cout << "Jumped";
     m_Y = ground;
+}
+
+void Player::OnAttackCompleted() {
+    isAttacking = false;
 }

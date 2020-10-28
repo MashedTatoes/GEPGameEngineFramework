@@ -3,8 +3,8 @@
 #include "PauseMenuPopupState.h"
 void GameState::Enter()
 {
-	
-	
+
+
 
 	m_pFont = TTF_OpenFont("Font/LTYPE.TTF", 30);
 
@@ -18,10 +18,10 @@ void GameState::Enter()
 
 	bg = new SpriteEx(bgSpriteTex, bgSrcRect, bgDestRect);
 
-	  
-	player = new Player(mainSpriteTex, bgDestRect.w*0.5, bgDestRect.h - 100);
+
+
 	//scorpion = new Scorpion(bgDestRect.w * 0.5, bgDestRect.h - 100);
- 
+
 }
 
 
@@ -34,18 +34,18 @@ void GameState::Update()
 	}
 
 	if (player) player->Update();
-	
- 
+
+
 
 	if (player) this->CheckCollision();
 
 	if (Game::Instance()->KeyDown(SDL_SCANCODE_SPACE) && player)
 	{
-	 
-	 
+
+
 	}
- 
- 
+
+
 
 }
 
@@ -58,8 +58,8 @@ void GameState::Render()
 	bg->Render();
 
 	if (player) player->Render();
-	
-  
+
+
 	ScreenState::Render();
 
 
@@ -74,6 +74,6 @@ void GameState::Exit()
 
 void GameState::CheckCollision()
 {
-	 
+
 
 }
