@@ -64,9 +64,12 @@ struct AnimStateDefinition
     bool isInterrupt = true;
 
     std::function<void()> callbackOnComplete;
-
+    std::function<void()> callbackOnStart;
     void AddCallbackOnComplete(std::function<void()> cb) {
         callbackOnComplete = cb;
+    }
+    void AddCallbackOnStart(std::function<void()> cb) {
+        callbackOnStart = cb;
     }
 
     AnimStateDefinition() {}
@@ -100,5 +103,7 @@ public:
     SpriteExAnimated(SDL_Texture* tex, double x, double y,
         double a);
     std::string GetCurrentState() { return currentState; }
+    int GetCurrentAnimFrame() { return m_iFrame; }
+    std::map<std::string, AnimStateDefinition> getAnimStates() { return animStates; };
 };
 

@@ -10,7 +10,9 @@ Player::Player(SDL_Texture* tex, double x, double y)
     m_DY = 0.1f;
     m_dRadius = 50;
     ground = m_Y;
-
+    health = 250;
+    lastCrouch = SDL_GetTicks();
+    crouchTimeout = 250;
     AddAnimState("Hadouken", AnimStateDefinition(0, 4, 90));
     AddAnimState("Idle", AnimStateDefinition(1, 4, 90, true, false));
     AddAnimState("Punch", AnimStateDefinition(2, 3, 90));
@@ -66,6 +68,7 @@ void Player::Jump()
 }
 void Player::UpdatePlayer()
 {
+    
     //press D to move right... A to move left
     if (Game::Instance()->KeyDown(SDL_SCANCODE_D))
         this->MovePlayer(true);
@@ -78,22 +81,22 @@ void Player::UpdatePlayer()
     }
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_P))
     {
-        PlayState("Punch");
+        Attack("Punch");
         isAttacking = true;
         //play punch animation here
     }
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_K)) {
-        PlayState("Kick");
+        Attack("Kick");
         isAttacking = true;
     }
 
 
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_RETURN)) {
-        PlayState("Hadouken");
+        Attack("Hadouken");
         isAttacking = true;
     }
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_R)) {
-        PlayState("Roundhouse");
+        Attack("Roundhouse");
         isAttacking = true;
     }
     else  //idle animation
@@ -104,6 +107,7 @@ void Player::UpdatePlayer()
     if (currentState == "Jump")
         Jump();
     spriteSrcRect.x = spriteSrcRect.w * m_iFrame; //updates the animation
+    
     this->UpdateDestRect();
 }
 void Player::OnJumpAnimComplete() {
@@ -113,4 +117,21 @@ void Player::OnJumpAnimComplete() {
 
 void Player::OnAttackCompleted() {
     isAttacking = false;
+}
+
+void Player::OnAttackStart()
+{
+}
+
+void Player::Attack(std::string attackName)
+{
+    PlayState(attackName);
+    attackStart = SDL_GetTicks();
+    if (m_iFrame == 0) {
+        
+        if (animStates[attackName].callbackOnStart != nullptr) {
+            
+            animStates[attackName].callbackOnStart();
+        }
+    }
 }

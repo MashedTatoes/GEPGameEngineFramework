@@ -20,6 +20,7 @@ void ScreenState::RenderFont(bool isRefreshText, const char *text, int x, int y)
 		SDL_DestroyTexture(m_pFontTexture); //need to de-allocate previous font texture
 		m_pFontTexture = SDL_CreateTextureFromSurface(Game::Instance()->GetRenderer(), fontSurface);
 		m_rFontRect = { x,y,fontSurface->w,fontSurface->h };
+		SDL_FreeSurface(fontSurface); //De allocate to prevent mem leak
 
 	}
 

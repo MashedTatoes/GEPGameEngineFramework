@@ -98,12 +98,7 @@ std::pair<int, int> SpriteEx::CalculateNormal(int x, int y)
 std::pair<int, int> SpriteEx::MoveTowards(int x, int y, float speed)
 {
     std::pair<int, int> targetNormal = CalculateNormal(x, y);
-
     m_X += targetNormal.first * speed;
     m_Y += targetNormal.second * speed;
     return targetNormal;
-
-
-
-
 }

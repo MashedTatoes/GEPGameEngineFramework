@@ -1,11 +1,12 @@
 #include "GameState.h"
 #include "Game.h"
 #include "PauseMenuPopupState.h"
+#include "GameManager.h"
 void GameState::Enter()
 {
 
 
-
+	
 	m_pFont = TTF_OpenFont("Font/LTYPE.TTF", 30);
 
 	SDL_Rect bgSrcRect;

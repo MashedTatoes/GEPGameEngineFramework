@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameState.h"
 #include "GameLevel1.h"
+#include "GameManager.h"
 void MainMenuState::Enter()
 {
 	cout << "Entering MainMenu...\n";
@@ -40,7 +41,7 @@ void MainMenuState::Render()
 	SDL_RenderClear(Game::Instance()->GetRenderer());
 	for (int i = 0; i < (int)m_vButtons.size(); i++)
 		m_vButtons[i]->Render();
-
+	
 	ScreenState::Render();
 }
 

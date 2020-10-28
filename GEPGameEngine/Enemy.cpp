@@ -1,5 +1,5 @@
 #include "Enemy.h"
-
+#include "GameManager.h"
 Enemy::Enemy(SDL_Texture* tex, double x, double y, Player* target)
 	: Player(tex, x, y)
 {
@@ -7,8 +7,8 @@ Enemy::Enemy(SDL_Texture* tex, double x, double y, Player* target)
 	attackTimeout = 1000;
 	this->target = target;
 	this->flippedDimensions.first = true;
-
 	PlayState("Idle");
+	
 }
 Enemy::~Enemy()
 {
@@ -39,15 +39,35 @@ void Enemy::UpdateEnemy()
 
 
 	else {
-		if (target->IsAttacking()) {
+		
+		if (target->IsAttacking() && target->GetCurrentAnimFrame() == 0) {
 			int rnd = rand() % 11;
-			if (rnd <= 3) {
-				PlayState("Crouch");
+			
+			if (SDL_TICKS_PASSED(SDL_GetTicks(), lastCrouch + crouchTimeout)) {
+				if (rnd <= 4) {
+					PlayState("Crouch");
+					lastCrouch = SDL_GetTicks();
+				}
+				else {
+					int damage = 0;
+					if (target->GetCurrentState().compare("Punch") == 0) {
+						damage = 5;
+					}
+					else if (target->GetCurrentState().compare("Kick") == 0) {
+						damage = 10;
+					}
+					else if (target->GetCurrentState().compare("Roundhouse") == 0) {
+						damage = 15;
+					}
+					GameManager::Instance()->DamagePlayerTwo(damage);
+					lastCrouch = SDL_GetTicks();
+				}
+				
 			}
+			
+			
 		}
-		else {
-			Attack();
-		}
+		//Attack();
 	}
 
 
@@ -63,4 +83,16 @@ void Enemy::Attack() {
 		}
 	}
 
+}
+
+void Enemy::OnTargetAttack()
+{
+	if (CalculateNormal(target->GetX() + 50, target->GetY()).first == 0) {
+		int rnd = rand() % 11;
+		std::cout << rnd << std::endl;
+		if (rnd <= 2) {
+			PlayState("Crouch");
+		}
+	}
+	
 }

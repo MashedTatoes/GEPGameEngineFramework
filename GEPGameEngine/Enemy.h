@@ -14,7 +14,7 @@ public:
 	//over-ride the base player class's Update funtionality
 	void Update() override;
 	void Attack();
-
+	void OnTargetAttack();
 
 };
 
