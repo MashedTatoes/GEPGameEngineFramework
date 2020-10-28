@@ -10,7 +10,11 @@ private:
 		m_velMax = 10;
 	void MovePlayer(bool isFwd);
 	void UpdatePlayer();
+
 	int ground;
+	bool isAttacking;
+protected:
+	std::vector<std::string> attackPool;
 public:
 	Player(SDL_Texture* tex, double x, double y);
 	~Player();
@@ -19,6 +23,8 @@ public:
 	//void SetIdle();
 	void Jump();
 	void OnJumpAnimComplete();
-	
+	void OnAttackCompleted();
+	bool IsAttacking() { return isAttacking; }
+
 
 };

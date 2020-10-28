@@ -4,20 +4,20 @@ void GameLevel1::Enter()
 {
 	bgSpriteTex = Game::Instance()->LoadTexture("resources/images/bg_level1.jpg");
 	mainSpriteTex = Game::Instance()->LoadTexture("resources/images/PlayerKenSprite.png");
-	
+
 	enemySpriteTex = Game::Instance()->LoadTexture("resources/images/PlayerKenSpriteEnemy.png");
-	
+
 	SDL_Rect bgDestRect;
 	bgDestRect.x = bgDestRect.y = 0;
 	SDL_GetWindowSize(Game::Instance()->GetWindow(), &bgDestRect.w, &bgDestRect.h);
+	player = new Player(mainSpriteTex, bgDestRect.w * 0.5, bgDestRect.h - 100);
 
-	
-	enemy = new Enemy(enemySpriteTex, bgDestRect.w * 0.75, bgDestRect.h - 90);
+	enemy = new Enemy(enemySpriteTex, bgDestRect.w * 0.75, bgDestRect.h - 100, player);
 
 
 	GameState::Enter();
 
-	
+
 
 }
 
@@ -29,7 +29,7 @@ void GameLevel1::Update()
 
 void GameLevel1::Render()
 {
-	
+
 	SDL_SetRenderDrawColor(Game::Instance()->GetRenderer(), 0, 0, 0, 255); //set background window color
 	SDL_RenderClear(Game::Instance()->GetRenderer()); //clear the screen
 
@@ -39,7 +39,7 @@ void GameLevel1::Render()
 	if (enemy) enemy->Render();
 
 	ScreenState::Render();
-	
+
 	//cout << "Rendering GameLevel1" << endl;
 }
 
