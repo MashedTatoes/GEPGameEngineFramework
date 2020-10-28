@@ -67,7 +67,10 @@ void Enemy::UpdateEnemy()
 			
 			
 		}
-		//Attack();
+		else {
+			Attack();
+		}
+		
 	}
 
 
