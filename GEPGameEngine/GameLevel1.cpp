@@ -16,7 +16,7 @@ void GameLevel1::Enter()
 	player = new Player(mainSpriteTex, bgDestRect.w * 0.5, bgDestRect.h - 100);
 
 	enemy = new Enemy(enemySpriteTex, bgDestRect.w * 0.75, bgDestRect.h - 100, player);
-
+	player->SetEnemy(enemy);
 
 	GameState::Enter();
 

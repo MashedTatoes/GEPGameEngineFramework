@@ -1,6 +1,7 @@
 #pragma once
 #include "SpriteEx.h"
 #include <vector>
+#include "Hadouken.h"
 using namespace std;
 class Player : public SpriteExAnimated
 {
@@ -12,13 +13,17 @@ private:
 	void UpdatePlayer();
 	int health;
 	int ground;
-	bool isAttacking;
+	
 	int attackStart;
-
+	Hadouken* currentHadouken;
+	int invincibiltyTime;
+	int invinvibilityStart;
 protected:
 	std::vector<std::string> attackPool;
 	int lastCrouch;
 	int crouchTimeout;
+	Player* enemey;
+	bool isAttacking;
 public:
 	Player(SDL_Texture* tex, double x, double y);
 	~Player();
@@ -32,6 +37,9 @@ public:
 	bool IsAttacking() { return isAttacking; }
 	int GetAttackStart(){ return attackStart; }
 	void Attack(std::string attackName);
-
+	void CheckForCollisions() ;
+	Hadouken* GetHadouken() { return currentHadouken; }
+	void SetEnemy(Player* e) { enemey = e; }
+	
 
 };

@@ -4,7 +4,7 @@ class Enemy : public Player
 {
 private:
 	void UpdateEnemy();
-	Player* target;
+	//Player* target;
 
 	Uint32 lastAttack;
 	Uint32 attackTimeout;
@@ -15,6 +15,9 @@ public:
 	void Update() override;
 	void Attack();
 	void OnTargetAttack();
+
+	void CheckForCollisions();
+	bool TryAvoidAttack();
 
 };
 

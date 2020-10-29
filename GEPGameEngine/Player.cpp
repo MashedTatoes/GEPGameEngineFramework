@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 #include <algorithm> //for min/max functions
+#include "GameManager.h"
 Player::Player(SDL_Texture* tex, double x, double y)
     : SpriteExAnimated(tex, x - 50, y - 50, 0)
 {
@@ -12,7 +13,7 @@ Player::Player(SDL_Texture* tex, double x, double y)
     ground = m_Y;
     health = 250;
     lastCrouch = SDL_GetTicks();
-    crouchTimeout = 250;
+    crouchTimeout = 200;
     AddAnimState("Hadouken", AnimStateDefinition(0, 4, 90));
     AddAnimState("Idle", AnimStateDefinition(1, 4, 90, true, false));
     AddAnimState("Punch", AnimStateDefinition(2, 3, 90));
@@ -29,6 +30,8 @@ Player::Player(SDL_Texture* tex, double x, double y)
     for (auto& state : this->attackPool) {
         animStates[state].AddCallbackOnComplete(std::bind(&Player::OnAttackCompleted, this));
     }
+    invincibiltyTime = 500;
+    invinvibilityStart = SDL_GetTicks();
 }
 Player::~Player()
 {
@@ -36,7 +39,9 @@ Player::~Player()
 }
 void Player::Render()
 {
-
+    if (currentHadouken != nullptr) {
+        currentHadouken->Render();
+    }
     this->SpriteExAnimated::Render(); //invoke the base class's Render()
 }
 
@@ -94,10 +99,15 @@ void Player::UpdatePlayer()
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_RETURN)) {
         Attack("Hadouken");
         isAttacking = true;
+        currentHadouken = new Hadouken(texture, GetX(), GetY(), 1);
     }
     else if (Game::Instance()->KeyDown(SDL_SCANCODE_R)) {
         Attack("Roundhouse");
         isAttacking = true;
+    }
+    else if (Game::Instance()->KeyDown(SDL_SCANCODE_LSHIFT)) {
+        PlayState("Crouch");
+
     }
     else  //idle animation
     {
@@ -109,6 +119,20 @@ void Player::UpdatePlayer()
     spriteSrcRect.x = spriteSrcRect.w * m_iFrame; //updates the animation
     
     this->UpdateDestRect();
+    //In attack range
+    if (CalculateNormal(enemey->GetX() - 50, enemey->GetY()).first == 0) {
+        if (currentState.compare("Crouch") != 0 && enemey->isAttacking) {
+            if (SDL_TICKS_PASSED(SDL_GetTicks(), invincibiltyTime + invinvibilityStart)) {
+                GameManager::Instance()->DamagePlayerOne(5);
+                invinvibilityStart = SDL_GetTicks();
+            }
+            
+            
+        }
+    }
+    if (currentHadouken != nullptr) {
+        currentHadouken->Update();
+    }
 }
 void Player::OnJumpAnimComplete() {
     std::cout << "Jumped";
@@ -116,6 +140,7 @@ void Player::OnJumpAnimComplete() {
 }
 
 void Player::OnAttackCompleted() {
+    
     isAttacking = false;
 }
 
@@ -134,4 +159,8 @@ void Player::Attack(std::string attackName)
             animStates[attackName].callbackOnStart();
         }
     }
+}
+
+void Player::CheckForCollisions()
+{
 }

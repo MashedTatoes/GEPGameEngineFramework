@@ -3,11 +3,15 @@
 Enemy::Enemy(SDL_Texture* tex, double x, double y, Player* target)
 	: Player(tex, x, y)
 {
+	m_dRadius = 10;
 	lastAttack = SDL_GetTicks();
-	attackTimeout = 1000;
-	this->target = target;
+	attackTimeout = 1500;
+	this->SetEnemy(target);
 	this->flippedDimensions.first = true;
 	PlayState("Idle");
+	for (auto& state : this->attackPool) {
+		animStates[state].AddCallbackOnComplete(std::bind(&Player::OnAttackCompleted, this));
+	}
 	
 }
 Enemy::~Enemy()
@@ -29,40 +33,32 @@ void Enemy::UpdateEnemy()
 
 	if ((currentState.compare("Idle") == 0 || currentState.compare("Move") == 0) || animationReset) {
 
-		moveVector = MoveTowards(target->GetX() + 50, target->GetY(), 0.7f);
+		moveVector = MoveTowards(enemey->GetX() + 50, enemey->GetY(), 0.7f);
 	}
-
+	CheckForCollisions();
 	if (moveVector.first != 0) {
 		PlayState("Move");
 	}
 
 
-
+	
 	else {
 		
-		if (target->IsAttacking() && target->GetCurrentAnimFrame() == 0) {
-			int rnd = rand() % 11;
-			
-			if (SDL_TICKS_PASSED(SDL_GetTicks(), lastCrouch + crouchTimeout)) {
-				if (rnd <= 4) {
-					PlayState("Crouch");
-					lastCrouch = SDL_GetTicks();
+		if (enemey->IsAttacking() && enemey->GetCurrentAnimFrame() == 0) {
+			if (!TryAvoidAttack())
+			{
+				int damage = 0;
+				if (enemey->GetCurrentState().compare("Punch") == 0) {
+					damage = 5;
 				}
-				else {
-					int damage = 0;
-					if (target->GetCurrentState().compare("Punch") == 0) {
-						damage = 5;
-					}
-					else if (target->GetCurrentState().compare("Kick") == 0) {
-						damage = 10;
-					}
-					else if (target->GetCurrentState().compare("Roundhouse") == 0) {
-						damage = 15;
-					}
-					GameManager::Instance()->DamagePlayerTwo(damage);
-					lastCrouch = SDL_GetTicks();
+				else if (enemey->GetCurrentState().compare("Kick") == 0) {
+					damage = 10;
 				}
-				
+				else if (enemey->GetCurrentState().compare("Roundhouse") == 0) {
+					damage = 15;
+				}
+
+				GameManager::Instance()->DamagePlayerTwo(damage);
 			}
 			
 			
@@ -81,6 +77,7 @@ void Enemy::UpdateEnemy()
 void Enemy::Attack() {
 	if (SDL_TICKS_PASSED(SDL_GetTicks(), lastAttack + attackTimeout)) {
 		if (animationReset || !animStates[currentState].isInterrupt) {
+			isAttacking = true;
 			PlayState(attackPool[rand() % attackPool.size()]);
 			lastAttack = SDL_GetTicks();
 		}
@@ -90,7 +87,7 @@ void Enemy::Attack() {
 
 void Enemy::OnTargetAttack()
 {
-	if (CalculateNormal(target->GetX() + 50, target->GetY()).first == 0) {
+	if (CalculateNormal(enemey->GetX() + 50, enemey->GetY()).first == 0) {
 		int rnd = rand() % 11;
 		std::cout << rnd << std::endl;
 		if (rnd <= 2) {
@@ -98,4 +95,32 @@ void Enemy::OnTargetAttack()
 		}
 	}
 	
+}
+
+void Enemy::CheckForCollisions() {
+	if (enemey->GetHadouken() != nullptr) {
+		if (CircleCollisionTest(enemey->GetHadouken()->GetX(), enemey->GetHadouken()->GetY(), GetX(), GetY(), enemey->GetHadouken()->GetRadius(), GetRadius())) {
+			if (!TryAvoidAttack()) {
+				GameManager::Instance()->DamagePlayerTwo(30);
+			}
+		}
+	}
+	
+}
+
+bool Enemy::TryAvoidAttack() {
+	int rnd = rand() % 11;
+
+	if (SDL_TICKS_PASSED(SDL_GetTicks(), lastCrouch + crouchTimeout)) {
+		if (rnd <= 4) {
+			PlayState("Crouch");
+			lastCrouch = SDL_GetTicks();
+			return true;
+		}
+		else {
+			lastCrouch = SDL_GetTicks();
+			return false;
+		}
+
+	}
 }

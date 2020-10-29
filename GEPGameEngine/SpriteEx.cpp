@@ -102,3 +102,5 @@ std::pair<int, int> SpriteEx::MoveTowards(int x, int y, float speed)
     m_Y += targetNormal.second * speed;
     return targetNormal;
 }
+
+
