@@ -129,6 +129,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLevel1.cpp" />
+    <ClCompile Include="GameLevel2.cpp" />
+    <ClCompile Include="GameLevel3.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameSetupState.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -148,6 +150,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLevel1.h" />
+    <ClInclude Include="GameLevel2.h" />
+    <ClInclude Include="GameLevel3.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameSetupState.h" />
     <ClInclude Include="GameState.h" />
@@ -161,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\bg_level1.jpg" />
+    <Image Include="resources\images\bg_level2.png" />
+    <Image Include="resources\images\bg_level3.png" />
     <Image Include="resources\images\PlayerKenSprite.png" />
     <Image Include="resources\images\PlayerKenSpriteEnemy.png" />
     <Image Include="resources\images\Scorpion.png" />

@@ -75,6 +75,12 @@
     <ClCompile Include="GameSetupState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameLevel2.cpp">
+      <Filter>Source Files\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevel3.cpp">
+      <Filter>Source Files\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -119,6 +125,12 @@
     <ClInclude Include="GameSetupState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameLevel2.h">
+      <Filter>Header Files\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevel3.h">
+      <Filter>Header Files\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\bg_level1.jpg">
@@ -131,6 +143,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\images\PlayerKenSpriteEnemy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\bg_level2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\bg_level3.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
