@@ -4,7 +4,7 @@
 
 void GameLevel1::Enter()
 {
-
+	gameStart = SDL_GetTicks();
 	bgSpriteTex = Game::Instance()->LoadTexture("resources/images/bg_level1.jpg");
 	mainSpriteTex = Game::Instance()->LoadTexture("resources/images/PlayerKenSprite.png");
 
@@ -28,7 +28,11 @@ void GameLevel1::Update()
 {
 	
 	GameState::Update();
-	if (enemy) enemy->Update();
+	if (SDL_TICKS_PASSED(SDL_GetTicks(),gameStart + 1000)&& !GameManager::Instance()->IsGameOver() ) {
+		if (enemy) enemy->Update();
+	}
+	
+	
 }
 
 void GameLevel1::Render()
@@ -47,12 +51,42 @@ void GameLevel1::Render()
 	}
 	char * enemyHealth = new char[64];
 	if (snprintf(enemyHealth, 64, "Health: %d", GameManager::Instance()->GetPlayerTwoHealth()) >= 0) {
-		ScreenState::RenderFont(true, enemyHealth,800, 0);
+		ScreenState::RenderFont(true, enemyHealth, 800, 0);
+	}
+	if (snprintf(playerHealth, 64, "Wins: %d", GameManager::Instance()->GetPlayerOneWins()) >= 0) {
+		ScreenState::RenderFont(true, playerHealth, 0, 20);
+	}
+	if (snprintf(enemyHealth, 64, "Wins: %d", GameManager::Instance()->GetPlayerTwoWins()) >= 0) {
+		ScreenState::RenderFont(true, enemyHealth, 800, 20);
+	}
+
+	if (GameManager::Instance()->IsGameOver()) {
+		char* gameOvertext = new char[64];
+		if (snprintf(gameOvertext, 64, "%s wins!", GameManager::Instance()->GetWinner().c_str()) >= 0) {
+			ScreenState::RenderFont(true, gameOvertext, 400, 0);
+
+		}
+		if (snprintf(gameOvertext, 64, "Click to play again", GameManager::Instance()->GetWinner().c_str()) >= 0) {
+			ScreenState::RenderFont(true, gameOvertext, 350, 20);
+			if (Game::Instance()->GetLeftMouse()) {
+				if (GameManager::Instance()->GetWinner().compare("Player") == 0) {
+					GameManager::Instance()->SetPlayerOneWins(GameManager::Instance()->GetPlayerOneWins() + 1);
+				}
+				else {
+					GameManager::Instance()->SetPlayerTwoWins(GameManager::Instance()->GetPlayerTwoWins() + 1);
+				}
+				Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
+				GameManager::Instance()->Reset();
+			}
+
+		}
+		delete[] gameOvertext;
 	}
 	
 	//Free array to stop memory leak
 	delete[] playerHealth;
 	delete[] enemyHealth;
+	
 
 	ScreenState::Render();
 
@@ -61,5 +95,8 @@ void GameLevel1::Render()
 
 void GameLevel1::Exit()
 {
+	delete player;
+	delete enemy;
+
 	GameState::Exit();
 }

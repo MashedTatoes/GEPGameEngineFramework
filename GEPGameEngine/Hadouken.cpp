@@ -8,13 +8,33 @@ Hadouken::Hadouken(SDL_Texture* tex, double x, double y,int dir) : SpriteExAnima
     m_DY = 0.1f;
     m_dRadius = 20;
     AddAnimState("Moving", AnimStateDefinition{ 4,2,15 });
+    AddAnimState("Destroying", AnimStateDefinition{ 5,4,70 });
     moveDirection = dir;
+    isDestroyed = false;
+    if (moveDirection == -1) {
+        flippedDimensions.first = true;
+    }
 }
 
-void Hadouken::Update()
+bool Hadouken::Update()
 {
-    m_X += m_velX;
-    PlayState("Moving");
+    
+    
+    if (isDestroyed) {
+        PlayState("Destroying");
+        if (isAnimFinished) {
+            return true;
+        }
+    }
+    else {
+        m_X += m_velX * moveDirection;
+        PlayState("Moving");
+    }
+    if (GetX() >= 1024 || GetX() <= 0) {
+        isDestroyed = true;
+    }
     spriteSrcRect.x = spriteSrcRect.w * m_iFrame; //updates the animation
     UpdateDestRect();
+
+    return false;
 }

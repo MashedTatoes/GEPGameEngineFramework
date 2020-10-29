@@ -8,6 +8,7 @@ private:
 
 	Uint32 lastAttack;
 	Uint32 attackTimeout;
+	
 public:
 	Enemy(SDL_Texture* tex, double x, double y, Player* target);
 	~Enemy();
@@ -18,6 +19,7 @@ public:
 
 	void CheckForCollisions();
 	bool TryAvoidAttack();
+	void Render();
 
 };
 

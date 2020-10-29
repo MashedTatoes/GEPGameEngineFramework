@@ -7,6 +7,7 @@ class GameLevel1 : public GameState
 protected:
 	SDL_Texture* enemySpriteTex;//load and store the enemy sprite texture
 	Enemy* enemy;
+	int gameStart;
 public:
 	GameLevel1(){}
 	void Enter() override;

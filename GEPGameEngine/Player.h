@@ -2,6 +2,7 @@
 #include "SpriteEx.h"
 #include <vector>
 #include "Hadouken.h"
+#include <memory>
 using namespace std;
 class Player : public SpriteExAnimated
 {
@@ -15,15 +16,19 @@ private:
 	int ground;
 	
 	int attackStart;
-	Hadouken* currentHadouken;
-	int invincibiltyTime;
-	int invinvibilityStart;
+	
+	
 protected:
 	std::vector<std::string> attackPool;
 	int lastCrouch;
 	int crouchTimeout;
 	Player* enemey;
 	bool isAttacking;
+	unique_ptr<Hadouken> currentHadouken;
+	int invincibiltyTime;
+	int invinvibilityStart;
+	int lastHadouken;
+	int hadoukenTimeout;
 public:
 	Player(SDL_Texture* tex, double x, double y);
 	~Player();
@@ -38,7 +43,7 @@ public:
 	int GetAttackStart(){ return attackStart; }
 	void Attack(std::string attackName);
 	void CheckForCollisions() ;
-	Hadouken* GetHadouken() { return currentHadouken; }
+	Hadouken* GetHadouken() { return currentHadouken.get(); }
 	void SetEnemy(Player* e) { enemey = e; }
 	
 
