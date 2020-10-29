@@ -19,3 +19,18 @@ public:
 	void Render();
 	bool Clicked() { return m_iFrame == 2; }
 };
+
+
+class LabeledButton : public Button
+{
+private:
+
+	SDL_Texture* m_pFontText;
+	SDL_Rect m_rFontRect;
+
+public:
+	LabeledButton(const char* c, SDL_Rect src, SDL_Rect des, const char* text, const char* font, int fontsize, SDL_Color color);
+	//void setText(string, string, SDL_Color, int);
+	void Render();
+	~LabeledButton();
+};

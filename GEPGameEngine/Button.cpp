@@ -47,3 +47,27 @@ void Button::Render()
 	m_rSrc.x = m_rSrc.w * m_iFrame;
 	SDL_RenderCopy(Game::Instance()->GetRenderer(), m_pText, &m_rSrc, &m_rDst);
 }
+
+
+// Labeled Button
+
+LabeledButton::LabeledButton(const char* c, SDL_Rect src, SDL_Rect des, const char* text, const char* font, int fontsize, SDL_Color color)
+	: Button(c, src, des) {
+	TTF_Font* m_Font;
+	m_Font = TTF_OpenFont(font, fontsize);
+	SDL_Surface* fontSurf = TTF_RenderText_Solid(m_Font, text, color);
+	m_pFontText = SDL_CreateTextureFromSurface(Game::Instance()->GetRenderer(), fontSurf);
+	SDL_FreeSurface(fontSurf);
+	m_rFontRect = { des.x + des.w / 4, des.y + des.h / 4, des.w / 2, des.h / 2 };
+
+}
+
+void LabeledButton::Render() {
+	this->Button::Render();
+	SDL_SetRenderDrawBlendMode(Game::Instance()->GetRenderer(), SDL_BlendMode::SDL_BLENDMODE_BLEND);
+	SDL_RenderCopy(Game::Instance()->GetRenderer(), m_pFontText, 0, &m_rFontRect);
+}
+
+LabeledButton::~LabeledButton() {
+	SDL_DestroyTexture(m_pFontText);
+}
