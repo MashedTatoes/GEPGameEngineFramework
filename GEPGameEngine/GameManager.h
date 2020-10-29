@@ -8,6 +8,8 @@ private:
 	bool isGameOver;
 	int playerOneWins;
 	int playerTwoWins;
+	int matchesLeft;
+	int winAmount;
 	
 public:
 	GameManager();
@@ -29,7 +31,8 @@ public:
 	}
 	bool IsGameOver() { return isGameOver; }
 	std::string GetWinner();
-	void Reset();
+	bool Reset();
+	std::string GetGameWinner();
 	void SetPlayerOneWins(int wins) { playerOneWins = wins; }
 	void SetPlayerTwoWins(int wins) { playerTwoWins = wins; }
 

@@ -1,7 +1,7 @@
 #include "GameLevel1.h"
 #include "Game.h"
 #include "GameManager.h"
-
+#include "GameOverScreen.h"
 void GameLevel1::Enter()
 {
 	gameStart = SDL_GetTicks();
@@ -31,7 +31,24 @@ void GameLevel1::Update()
 	if (SDL_TICKS_PASSED(SDL_GetTicks(),gameStart + 1000)&& !GameManager::Instance()->IsGameOver() ) {
 		if (enemy) enemy->Update();
 	}
-	
+	if (GameManager::Instance()->IsGameOver()) {
+		if (Game::Instance()->GetLeftMouse()) {
+			if (GameManager::Instance()->GetWinner().compare("Player") == 0) {
+				GameManager::Instance()->SetPlayerOneWins(GameManager::Instance()->GetPlayerOneWins() + 1);
+			}
+			else {
+				GameManager::Instance()->SetPlayerTwoWins(GameManager::Instance()->GetPlayerTwoWins() + 1);
+			}
+			
+			if (GameManager::Instance()->Reset()) {
+				Game::Instance()->GetFSM()->ChangeState(new GameOverScreen());
+				return;
+			}
+			else {
+				Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
+			}
+		}
+	}
 	
 }
 
@@ -68,16 +85,7 @@ void GameLevel1::Render()
 		}
 		if (snprintf(gameOvertext, 64, "Click to play again", GameManager::Instance()->GetWinner().c_str()) >= 0) {
 			ScreenState::RenderFont(true, gameOvertext, 350, 20);
-			if (Game::Instance()->GetLeftMouse()) {
-				if (GameManager::Instance()->GetWinner().compare("Player") == 0) {
-					GameManager::Instance()->SetPlayerOneWins(GameManager::Instance()->GetPlayerOneWins() + 1);
-				}
-				else {
-					GameManager::Instance()->SetPlayerTwoWins(GameManager::Instance()->GetPlayerTwoWins() + 1);
-				}
-				Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
-				GameManager::Instance()->Reset();
-			}
+			
 
 		}
 		delete[] gameOvertext;

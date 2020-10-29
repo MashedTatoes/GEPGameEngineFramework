@@ -151,10 +151,13 @@ void Player::UpdatePlayer()
     }
     if (enemey->GetHadouken() != nullptr) {
         if (CircleCollisionTest(enemey->GetHadouken()->GetX(), enemey->GetHadouken()->GetY(), GetX(), GetY(), enemey->GetHadouken()->GetRadius(), GetRadius())) {
-            if (currentState.compare("Crouch") != 0) {
+            if (SDL_TICKS_PASSED(SDL_GetTicks(), invincibiltyTime + invinvibilityStart)) {
+                if (currentState.compare("Crouch") != 0) {
 
-                GameManager::Instance()->DamagePlayerOne(30);
-                enemey->GetHadouken()->SetDestroyed(true);
+                    GameManager::Instance()->DamagePlayerOne(30);
+                    enemey->GetHadouken()->SetDestroyed(true);
+                    invinvibilityStart = SDL_GetTicks();
+                }
             }
         }
     }

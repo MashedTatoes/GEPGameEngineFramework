@@ -7,6 +7,8 @@ GameManager::GameManager()
 	isGameOver = false;
 	playerOneWins = 0;
 	playerTwoWins = 0;
+	matchesLeft = 5;
+	winAmount = 3;
 }
 
 GameManager* GameManager::Instance()
@@ -31,10 +33,28 @@ std::string GameManager::GetWinner()
 	return winner;
 }
 
-void GameManager::Reset()
+bool GameManager::Reset()
 {
+	matchesLeft--;
 	isGameOver = false;
 	player1Health = 100;
 	player2Health = 100;
+	
+	if (playerOneWins == winAmount || playerTwoWins == winAmount) {
+		return true;
+	}
+	return false;
 
+}
+std::string GameManager::GetGameWinner() {
+	std::string winner = "Undefined";
+
+	if (playerOneWins == winAmount) {
+		winner = "Player";
+	}
+	if (playerTwoWins == winAmount) {
+		winner = "Computer";
+	}
+
+	return winner;
 }

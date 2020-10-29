@@ -130,6 +130,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLevel1.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="GameSetupState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Hadouken.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLevel1.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GameSetupState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Hadouken.h" />
