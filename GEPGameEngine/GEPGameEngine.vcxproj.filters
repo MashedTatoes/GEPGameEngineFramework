@@ -75,14 +75,14 @@
     <ClCompile Include="GameSetupState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameLevel2.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
     <ClCompile Include="GameLevel3.cpp">
       <Filter>Source Files\Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOverScreen.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
