@@ -42,19 +42,7 @@ public:
     double GetX() { return m_X; }
     double GetY() { return m_Y; }
 };
-/*Lab Exercise 2
-Modify SpriteExAnimated such that:
-1. the class allows you to
-play a range of frames from within a spritesheet.
-Something like: AnimateRange(0,7) -> this should loop and play between frame 0 to 7.
--> Come up with a system to play a range.
--> The system should also allow speed control. Think of ways you could do.
-   Simplest could be using sleep but you should explore further such as using
-   SDL's timetick functionality and possibly using speed multiplier...
--> Once you come up with a theoretical solution, you can go ahead implement
-this if you have time.
-->WE will choose one of the proposed solutions and implement it in class as well next week.
-*/
+
 struct AnimStateDefinition
 {
     short rowIndex;

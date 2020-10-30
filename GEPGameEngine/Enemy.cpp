@@ -113,13 +113,7 @@ void Enemy::Attack() {
 			isAttacking = true;
 			std::string state = attackPool[rand() % (attackPool.size() - 1)];
 			PlayState(state);
-			if (state.compare("Hadouken") == 0) {
-				if (currentHadouken == nullptr) {
-					
-					isAttacking = true;
-					currentHadouken = std::make_unique<Hadouken>(texture, GetX(), GetY(), -1);
-				}
-			}
+			
 			lastAttack = SDL_GetTicks();
 		}
 	}
