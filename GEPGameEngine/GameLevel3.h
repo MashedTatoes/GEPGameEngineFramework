@@ -6,5 +6,5 @@ class GameLevel3 : public GameLevel1
 public:
 	GameLevel3() {}
 	void Enter() override;
-
+	void ResetStage() override;
 };

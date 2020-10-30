@@ -39,14 +39,8 @@ void GameLevel1::Update()
 			else {
 				GameManager::Instance()->SetPlayerTwoWins(GameManager::Instance()->GetPlayerTwoWins() + 1);
 			}
+			ResetStage();
 			
-			if (GameManager::Instance()->Reset()) {
-				Game::Instance()->GetFSM()->ChangeState(new GameOverScreen());
-				return;
-			}
-			else {
-				Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
-			}
 		}
 	}
 	
@@ -107,4 +101,16 @@ void GameLevel1::Exit()
 	delete enemy;
 
 	GameState::Exit();
+}
+
+void GameLevel1::ResetStage()
+{
+
+	if (GameManager::Instance()->Reset()) {
+		Game::Instance()->GetFSM()->ChangeState(new GameOverScreen());
+		return;
+	}
+	else {
+		Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
+	}
 }

@@ -14,5 +14,6 @@ public:
 	void Update() override;
 	void Render() override;
 	void Exit() override;
+	virtual void ResetStage();
 
 };

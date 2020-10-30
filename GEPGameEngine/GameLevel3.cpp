@@ -1,6 +1,7 @@
 #include "GameLevel3.h"
 #include "Game.h"
-
+#include "GameOverScreen.h"
+#include "GameManager.h"
 void GameLevel3::Enter()
 {
 
@@ -21,4 +22,16 @@ void GameLevel3::Enter()
 	GameState::Enter();
 
 
+}
+
+void GameLevel3::ResetStage()
+{
+
+	if (GameManager::Instance()->Reset()) {
+		Game::Instance()->GetFSM()->ChangeState(new GameOverScreen());
+		return;
+	}
+	else {
+		Game::Instance()->GetFSM()->ChangeState(new GameLevel3());
+	}
 }
