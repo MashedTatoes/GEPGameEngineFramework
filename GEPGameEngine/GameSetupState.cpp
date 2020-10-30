@@ -1,6 +1,8 @@
 #include "GameSetupState.h"
 #include "Game.h"
 #include "GameLevel1.h"
+#include "GameLevel2.h"
+#include "GameLevel3.h"
 
 void GameSetupState::Enter()
 {
@@ -32,12 +34,12 @@ void GameSetupState::Update()
 
 	else if (m_vButtons[btn::level2]->Clicked())
 	{
-		Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
+		Game::Instance()->GetFSM()->ChangeState(new GameLevel2());
 	}
 
 	else if (m_vButtons[btn::level3]->Clicked())
 	{
-		Game::Instance()->GetFSM()->ChangeState(new GameLevel1());
+		Game::Instance()->GetFSM()->ChangeState(new GameLevel3());
 	}
 
 }
